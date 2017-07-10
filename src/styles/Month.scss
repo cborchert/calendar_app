@@ -1,0 +1,31 @@
+@import 'vars';
+
+.Month {
+
+    background-color: $month-bg;
+    color: $month-fg;
+    margin: 20px auto;
+    width: 100%;
+
+    &__header {
+        background-color: $month-header-bg;
+        color: $month-header-fg;
+        padding: $padding;
+        text-align: center;
+    }
+
+    &__week {
+        font-size: 0;
+        padding: 0 $padding;
+        text-align: left;
+        min-height: 100px;
+
+        &--header {
+            background-color: $month-week-header-bg;
+            color: $month-week-header-fg;
+            padding: $padding;
+            min-height: 0;
+        }
+    }
+
+}

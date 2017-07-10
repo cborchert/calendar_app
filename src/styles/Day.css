@@ -1,0 +1,7 @@
+.Day {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1rem;
+  vertical-align: top;
+  width: calc(100%/7);
+  padding: 10px 4px; }

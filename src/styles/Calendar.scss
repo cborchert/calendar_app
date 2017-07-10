@@ -1,0 +1,13 @@
+@import 'vars';
+
+.Calendar {
+
+    margin: 50px auto;
+    width: 100%;
+    max-width: $max-width;
+
+    &__body {
+        padding: $padding;
+    }
+
+}

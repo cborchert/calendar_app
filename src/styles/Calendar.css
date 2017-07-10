@@ -1,0 +1,6 @@
+.Calendar {
+  margin: 50px auto;
+  width: 100%;
+  max-width: 1200px; }
+  .Calendar__body {
+    padding: 20px; }

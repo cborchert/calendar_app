@@ -1,0 +1,20 @@
+.Month {
+  background-color: #ECF0F1;
+  color: #869198;
+  margin: 20px auto;
+  width: 100%; }
+  .Month__header {
+    background-color: #3498DB;
+    color: #fff;
+    padding: 20px;
+    text-align: center; }
+  .Month__week {
+    font-size: 0;
+    padding: 0 20px;
+    text-align: left;
+    min-height: 100px; }
+    .Month__week--header {
+      background-color: #dde4e6;
+      color: #869198;
+      padding: 20px;
+      min-height: 0; }
