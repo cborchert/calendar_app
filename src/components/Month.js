@@ -5,18 +5,34 @@ import '../styles/Month.css';
 
 class Month extends Component {
 
+    //TODO: optimize filterEventsByDate consider reducing the events beforehand and organizing weekly
+    //TODO: optimize filterEventsByDate consider using undercores
+    //TODO: dates should be fed in in unix time or something that does not require conversion
     filterEventsByDate(date) {
 
         let dayOfWeek = date.getDay();
         return this.props.events.filter(event => {
             let eventOnDay = false;
-            if (event.recurring_date_list && event.recurring_date_list.length > 0) {
+            //Check if the day of the week is in the recurring date list
+            if (event.recurring_date_list) {
                 event.recurring_date_list.forEach(item => {
                     item.days_of_week.forEach(day => {
                         if (day == dayOfWeek) {
                             eventOnDay = true;
                         }
                     });
+                });
+            }
+            //Check if the date is in the date list
+            if (event.date_list) {
+                event.date_list.forEach(eventDate => {
+                    let eventDateArray = eventDate.date.split('/'),
+                        //The months in javascript are 0 based
+                        eventDateObject = new Date(Number(eventDateArray[2]), Number(eventDateArray[0]) - 1, Number(eventDateArray[1]));
+                    console.log(eventDateArray, eventDateObject);
+                    if (date.getTime() == eventDateObject.getTime()) {
+                        eventOnDay = true;
+                    }
                 });
             }
             return eventOnDay;
