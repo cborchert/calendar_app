@@ -17,7 +17,7 @@ class App extends Component {
                     <code>src/App.js</code>
                     and save to reload.
                 </p>
-                <Calendar data={data}/>
+                <Calendar data={data.calendars[0]}/>
             </div>
         );
     }

@@ -4,36 +4,63 @@ import Day from './Day';
 import '../styles/Month.css';
 
 class Month extends Component {
+
+    filterEventsByDate(date) {
+
+        let dayOfWeek = date.getDay();
+        return this.props.events.filter(event => {
+            let eventOnDay = false;
+            if (event.recurring_date_list && event.recurring_date_list.length > 0) {
+                event.recurring_date_list.forEach(item => {
+                    item.days_of_week.forEach(day => {
+                        if (day == dayOfWeek) {
+                            eventOnDay = true;
+                        }
+                    });
+                });
+            }
+            return eventOnDay;
+        })
+    }
+
     render() {
-        let weekDayNames = [
-            'Sun',
-            'Mon',
-            'Tue',
-            'Wed',
-            'Thu',
-            'Fri',
-            'Sat',
-        ];
-        let daysInMonth = new Date(this.props.year, this.props.month, 0).getDate();
+        //Month Name thanks to https://stackoverflow.com/questions/1643320/get-month-name-from-date
+        let monthName = new Date(this.props.year, this.props.month, 1).toLocaleString("en-us", {month: "long"}),
+            weekDayNames = [
+                'Sun',
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri',
+                'Sat'
+            ],
+            daysInMonth = new Date(this.props.year, this.props.month + 1, 0).getDate();
+
         //The following will return the day (number of week of the first of the month)
         //Will be used to cushion the first week
-        let firstDateDay = new Date(this.props.year, this.props.month, 1).getDay();
-
-        let weeks = [];
-        let dayInWeekCounter = 0;
-        let dayCounter = Number(String(this.props.year) + String(this.props.month)) * 100;
+        let firstDateDay = new Date(this.props.year, this.props.month, 1).getDay(),
+            weeks = [],
+            dayInWeekCounter = 0,
+            dayCounter = Number(String(this.props.year) + String(this.props.month)) * 100;
 
         //Form the first week
         let week = [];
         for (let i = 0; i < firstDateDay; i++) {
-            week.push((<Day uniqueId={dayCounter}/>));
+            week.push((<Day key={dayCounter}/>));
             dayInWeekCounter++;
             dayCounter++;
         }
 
         //Form the rest of the days
         for (let i = 1; i <= daysInMonth; i++) {
-            week.push((<Day uniqueId={dayCounter} date={String(i)}/>));
+
+            let dateFull = new Date(this.props.year, this.props.month, Number(i)),
+                //Get events in day
+                dayEvents = this.filterEventsByDate(dateFull);
+            //Deal with cancellations
+
+            week.push((<Day key={dayCounter} date={String(i)} dateFull={dateFull} events={dayEvents}/>));
             dayInWeekCounter++;
             dayCounter++;
             if (dayInWeekCounter % 7 === 0 || i === daysInMonth) {
@@ -46,23 +73,28 @@ class Month extends Component {
             <div className="Month">
                 <div className="Month__header">
                     <button>Back</button>
-                    <span>Month Name</span>
+                    <span>
+                        {monthName}
+                    </span>
+                    <span>
+                        {this.props.year}
+                    </span>
                     <button>Next</button>
                 </div>
                 <div className="Month__body">
                     <div className="Month__body__header">
                         <div className="Month__week Month__week--header">
                             {weekDayNames.map((dayName, i) => {
-                                return (<Day uniqueId={i} innerText={dayName} isHeader={true}/>);
+                                return (<Day key={i} innerText={dayName} isHeader={true}/>);
                             })}
                         </div>
                     </div>
-                    {weeks.map(week => {
+                    {weeks.map((week, i) => {
                         return (
-                            <div className="Month__week">
+                            <div key={i} className="Month__week">
                                 {week.map(day => day)}
                             </div>
-                        );
+                        )
                     })}
                 </div>
             </div>
@@ -73,11 +105,26 @@ class Month extends Component {
 Month.propTypes = {
     month: PropTypes.number,
     year: PropTypes.number,
+    //Is the following necessary? We already defined this above
+    events: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        slug: PropTypes.string,
+        status: PropTypes.string,
+        link: PropTypes.string,
+        title: PropTypes.shape({rendered: PropTypes.string}),
+        content: PropTypes.shape({rendered: PropTypes.string}),
+        //calendar_color: PropTypes.string,
+        //calendar_name: PropTypes.string,
+        //recurrence_type: PropTypes.oneOf(["date_list", "weekly"]),
+        recurring_date_list: PropTypes.arrayOf(PropTypes.shape({days_of_week: PropTypes.array, start_time: PropTypes.string, end_time: PropTypes.string})),
+        exceptions: PropTypes.arrayOf(PropTypes.shape({date: PropTypes.string, start_time: PropTypes.string, end_time: PropTypes.string})),
+        date_list: PropTypes.arrayOf(PropTypes.shape({date: PropTypes.string, start_time: PropTypes.string, end_time: PropTypes.string}))
+    }))
 }
 
 Month.defaultProps = {
     month: new Date().getMonth(),
-    year: new Date().getFullYear(),
-}
+    year: new Date().getFullYear()
+};
 
 export default Month;
