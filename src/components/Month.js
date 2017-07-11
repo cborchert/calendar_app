@@ -5,9 +5,9 @@ import '../styles/Month.css';
 
 class Month extends Component {
 
-    //TODO: optimize filterEventsByDate consider reducing the events beforehand and organizing weekly
-    //TODO: optimize filterEventsByDate consider using undercores
-    //TODO: dates should be fed in in unix time or something that does not require conversion
+    //TODO: optimize filterEventsByDate: reduce the recurring events beforehand and organizing weekly
+    //TODO: optimize filterEventsByDate: non-recurring events thrown out when the month/year does not match
+    //TODO: optimize filterEventsByDate: consider using undercores
     filterEventsByDate(date) {
 
         let dayOfWeek = date.getDay();
@@ -29,7 +29,6 @@ class Month extends Component {
                     let eventDateArray = eventDate.date.split('/'),
                         //The months in javascript are 0 based
                         eventDateObject = new Date(Number(eventDateArray[2]), Number(eventDateArray[0]) - 1, Number(eventDateArray[1]));
-                    console.log(eventDateArray, eventDateObject);
                     if (date.getTime() == eventDateObject.getTime()) {
                         eventOnDay = true;
                     }
@@ -37,6 +36,16 @@ class Month extends Component {
             }
             return eventOnDay;
         })
+    }
+
+    onMonthBack = function(e) {
+        e.preventDefault();
+        this.props.changeMonth(-1);
+    }
+
+    onMonthNext = function(e) {
+        e.preventDefault();
+        this.props.changeMonth(1);
     }
 
     render() {
@@ -88,14 +97,14 @@ class Month extends Component {
         return (
             <div className="Month">
                 <div className="Month__header">
-                    <button>Back</button>
+                    <button onClick={this.onMonthBack.bind(this)}>Back</button>
                     <span>
                         {monthName}
                     </span>
                     <span>
                         {this.props.year}
                     </span>
-                    <button>Next</button>
+                    <button onClick={this.onMonthNext.bind(this)}>Next</button>
                 </div>
                 <div className="Month__body">
                     <div className="Month__body__header">
@@ -119,6 +128,7 @@ class Month extends Component {
 }
 
 Month.propTypes = {
+    changeMonth: PropTypes.func,
     month: PropTypes.number,
     year: PropTypes.number,
     //Is the following necessary? We already defined this above

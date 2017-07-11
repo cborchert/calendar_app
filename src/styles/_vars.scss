@@ -1,6 +1,7 @@
 @import 'flat-ui-colors';
 $max-width: 1200px;
-$padding: 20px;
+//TODO: All units for padding and font should be in rems;
+$padding: 2rem;
 
 $white: #fff;
 $gray-1: $flat-gray-1;
@@ -14,3 +15,6 @@ $month-header-bg: $flat-blue-1;
 $month-header-fg: $white;
 $month-week-header-bg: $gray-2;
 $month-week-header-fg: $gray-4;
+
+$event-bg: $flat-sunflower;
+$event-fg: $white;

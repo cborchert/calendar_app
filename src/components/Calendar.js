@@ -12,13 +12,15 @@ class Calendar extends Component {
                     <span>{this.props.data.name}</span>
                 </div>
                 <div className="Calendar__body">
-                    <Month events={this.props.data.events}/>
+                    <Month events={this.props.data.events} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
                 </div>
             </div>
         );
     }
 }
 Calendar.propTypes = {
+    date: PropTypes.object,
+    changeMonth: PropTypes.func,
     data: PropTypes.shape({
         name: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,

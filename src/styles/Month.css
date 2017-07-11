@@ -1,20 +1,21 @@
 .Month {
   background-color: #ECF0F1;
   color: #869198;
-  margin: 20px auto;
+  margin: 2rem auto;
   width: 100%; }
   .Month__header {
     background-color: #3498DB;
     color: #fff;
-    padding: 20px;
+    font-size: 3.6rem;
+    padding: 2rem;
     text-align: center; }
   .Month__week {
     font-size: 0;
-    padding: 0 20px;
+    padding: 0 2rem;
     text-align: left;
-    min-height: 100px; }
+    min-height: 10rem; }
     .Month__week--header {
       background-color: #dde4e6;
       color: #869198;
-      padding: 20px;
+      padding: 2rem;
       min-height: 0; }
