@@ -6,9 +6,20 @@
   .Month__header {
     background-color: #3498DB;
     color: #fff;
-    font-size: 3.6rem;
+    font-size: 4.2rem;
+    line-height: 4.5rem;
     padding: 2rem;
     text-align: center; }
+    .Month__header__btn, .Month__header__name {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 2rem; }
+    .Month__header__name {
+      width: 20rem; }
+      .Month__header__name__month, .Month__header__name__year {
+        display: block; }
+      .Month__header__name__year {
+        font-size: 2.4rem; }
   .Month__week {
     font-size: 0;
     padding: 0 2rem;

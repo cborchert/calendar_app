@@ -2,6 +2,8 @@
 $max-width: 1200px;
 //TODO: All units for padding and font should be in rems;
 $padding: 2rem;
+$border-radius: 5px;
+$transition-time: 600ms;
 
 $white: #fff;
 $gray-1: $flat-gray-1;
@@ -18,3 +20,7 @@ $month-week-header-fg: $gray-4;
 
 $event-bg: $flat-sunflower;
 $event-fg: $white;
+
+$btn-bg: $flat-blue-1;
+$btn-bg-hover: $flat-blue-2;
+$btn-fg: $white;

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import Day from './Day';
 import '../styles/Month.css';
+import '../styles/common.css';
 
 class Month extends Component {
 
@@ -97,14 +99,20 @@ class Month extends Component {
         return (
             <div className="Month">
                 <div className="Month__header">
-                    <button onClick={this.onMonthBack.bind(this)}>Back</button>
-                    <span>
-                        {monthName}
-                    </span>
-                    <span>
-                        {this.props.year}
-                    </span>
-                    <button onClick={this.onMonthNext.bind(this)}>Next</button>
+                    <button className="btn btn--circle btn--large" onClick={this.onMonthBack.bind(this)} aria-label="Back">
+                        <FontAwesome name="chevron-left"/>
+                    </button>
+                    <div className="Month__header__name">
+                        <span className="Month__header__name__month">
+                            {monthName}
+                        </span>
+                        <span className="Month__header__name__year">
+                            {this.props.year}
+                        </span>
+                    </div>
+                    <button className="btn btn--circle btn--large" onClick={this.onMonthNext.bind(this)} aria-label="Next">
+                        <FontAwesome name="chevron-right"/>
+                    </button>
                 </div>
                 <div className="Month__body">
                     <div className="Month__body__header">
