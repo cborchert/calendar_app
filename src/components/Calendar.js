@@ -8,9 +8,7 @@ class Calendar extends Component {
     render() {
         return (
             <div className="Calendar">
-                <div className="Calendar__header">
-                    <span>{this.props.data.name}</span>
-                </div>
+                <div className="Calendar__header"></div>
                 <div className="Calendar__body">
                     <Month events={this.props.data.events} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
                 </div>

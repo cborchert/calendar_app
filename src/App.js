@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+//Get react toolbox working
+import theme from './assets/react-toolbox/theme'
+import ThemeProvider from 'react-toolbox/lib/ThemeProvider';
+import './assets/react-toolbox/theme.css';
+import 'material-design-icons/iconfont/material-icons.css';
 import data from './data';
 import Calendar from './components/Calendar';
 import logo from './logo.svg';
@@ -13,27 +18,38 @@ class App extends Component {
         super();
         let date = new Date();
         this.state = {
-            date: new Date(date.getFullYear(), date.getMonth(), 1)
+            date: new Date(date.getFullYear(), date.getMonth(), 1),
+            data: data,
+            calendarId: 0
         };
     }
 
     changeMonth(direction) {
-        console.log(this);
         let date = this.state.date;
         date.setMonth(date.getMonth() + direction);
         this.setState({date});
 
     }
 
+    addEvent(event) {
+
+        this.state.data.calendars[this.state.calendarId].events.push(event);
+        this.setState();
+
+    }
+
     render() {
         return (
-            <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Welcome to the React Calendar Project</h2>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+
+                    <div className="App-header">
+                        <img src={logo} className="App-logo" alt="logo"/>
+                    </div>
+                    <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} date={this.state.date}/>
+
                 </div>
-                <Calendar data={data.calendars[0]} changeMonth={this.changeMonth.bind(this)} date={this.state.date}/>
-            </div>
+            </ThemeProvider>
         );
     }
 }

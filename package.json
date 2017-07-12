@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "material-design-icons": "^3.0.1",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.0.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-fontawesome": "^1.6.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "react-toolbox": "^2.0.0-beta.6",
+    "react-toolbox-themr": "^1.0.2"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
@@ -19,7 +22,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "toolbox": "react-toolbox-themr"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -29,5 +33,20 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1"
+    },
+  "reactToolbox": {
+      "include": [
+        "BUTTON",
+        "DATE_PICKER",
+        "TIME_PICKER",
+        "INPUT",
+        "RIPPLE",
+        "DIALOG"
+      ],
+      "customProperties": {
+        "animation-duration": "0.3s",
+        "unit": "1rem",
+      },
+      "output": "src/assets/react-toolbox"
   }
 }

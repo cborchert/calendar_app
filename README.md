@@ -7,6 +7,25 @@ Additional notes:
   - `rm -rf node_modules` to remove the existing modules.
   - `npm install` to re-install the project dependencies.
 
+-   Using react-toolbox (^2.0.0-beta6) for material ui components and [react-toolbox-themr](https://github.com/react-toolbox/react-toolbox-themr) to provide styles without ejecting
+  -  In order to use a themed component go to `package.json` and add the component under reactToolbox.include. Run `npm run toolbox`.
+  -  In order to edit the theme, go to `package.json` and update the reactToolbox.customProperties. Here are the ones you want to focus on:
+     -   color-divider
+     -   color-background
+     -   color-text
+     -   color-text-secondary
+     -   color-primary
+     -   color-primary-dark
+     -   color-accent
+     -   color-accent-dark
+     -   color-primary-contrast
+     -   color-accent-contrast
+  -   The following can help you edit the theme (note that it uses PostCSS)  [variables.css](https://github.com/react-toolbox/react-toolbox/blob/dev/components/variables.css), [colors.css](https://github.com/react-toolbox/react-toolbox/blob/dev/components/colors.css),  [react-toolbox-themr](https://github.com/react-toolbox/react-toolbox-themr)
+  -   All this hassle because create-react-app doesn't let you use CSS modules without ejecting.
+     -  [Medium article about doing this without ejecting](https://medium.com/@kitze/configure-create-react-app-without-ejecting-d8450e96196a)
+     -  [Issue I was having earlier](https://github.com/react-toolbox/react-toolbox/issues/1054#issuecomment-267741717)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
