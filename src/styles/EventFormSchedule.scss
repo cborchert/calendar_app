@@ -1,0 +1,59 @@
+@import 'vars';
+
+.EventFormSchedule {
+    padding: $padding;
+
+    &__day {
+        box-sizing: border-box;
+        width: calc(100%/7 - 1rem);
+        min-width: 120px;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0.5rem;
+        background-color: $white;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+
+        &__name {
+
+            padding: 1rem 0.5rem;
+            background-color: $month-week-header-bg;
+            color: $month-week-header-fg;
+            font-size: 2.4rem;
+
+        }
+
+        &__times {
+            padding: 1rem 0.5rem;
+        }
+
+        &__time {
+
+            background: $flat-peter-river;
+            color: $white;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 1.6rem;
+            border-radius: $border-radius;
+            position: relative;
+
+            &__header {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+            }
+
+            &__body {
+
+                cursor: pointer;
+
+            }
+        }
+
+        &__footer {
+
+            padding: 2rem 0.5rem;
+            text-align: center;
+
+        }
+    }
+}

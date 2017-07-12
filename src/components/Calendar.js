@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Month from './Month';
+import EventForm from './EventForm';
 import '../styles/Calendar.css';
 
 class Calendar extends Component {
@@ -8,7 +9,9 @@ class Calendar extends Component {
     render() {
         return (
             <div className="Calendar">
-                <div className="Calendar__header"></div>
+                <div className="Calendar__header">
+                    <EventForm/>
+                </div>
                 <div className="Calendar__body">
                     <Month events={this.props.data.events} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
                 </div>
@@ -16,6 +19,7 @@ class Calendar extends Component {
         );
     }
 }
+
 Calendar.propTypes = {
     date: PropTypes.object,
     changeMonth: PropTypes.func,
@@ -38,4 +42,5 @@ Calendar.propTypes = {
         }))
     })
 }
+
 export default Calendar;

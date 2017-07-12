@@ -17,6 +17,15 @@
         background-color: $btn-bg-hover;
     }
 
+    &--alert {
+        background-color: $btn-bg-alert;
+
+        &:hover {
+            background-color: $btn-bg-alert-hover;
+        }
+
+    }
+
     &--round {
 
         padding: 1rem;
@@ -27,6 +36,12 @@
     &--large {
 
         font-size: 2.4rem;
+
+    }
+
+    &--tiny {
+
+        font-size: 1em;
 
     }
 
@@ -43,6 +58,14 @@
 
             width: 6rem;
             height: 6rem;
+
+        }
+
+        &.btn--tiny {
+
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
 
         }
 

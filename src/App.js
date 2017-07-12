@@ -9,6 +9,7 @@ import Calendar from './components/Calendar';
 import logo from './logo.svg';
 import './App.css';
 import 'font-awesome/css/font-awesome.css';
+import './styles/common.css';
 
 //TODO: dates in events should be in unix time or something that does not require conversion
 //TODO: Preprocess Events: events should not have php keys or unnecessary keys.
