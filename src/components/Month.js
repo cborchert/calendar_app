@@ -4,7 +4,6 @@ import FontAwesome from 'react-fontawesome';
 import Button from 'react-toolbox/lib/button/Button';
 import Day from './Day';
 import '../styles/Month.css';
-import '../styles/common.css';
 
 class Month extends Component {
 
@@ -15,6 +14,7 @@ class Month extends Component {
 
         let dayOfWeek = date.getDay();
         return this.props.events.filter(event => {
+            console.log(event);
             let eventOnDay = false;
             //Check if the day of the week is in the recurring date list
             if (event.recurring_date_list) {
@@ -29,10 +29,8 @@ class Month extends Component {
             //Check if the date is in the date list
             if (event.date_list) {
                 event.date_list.forEach(eventDate => {
-                    let eventDateArray = eventDate.date.split('/'),
-                        //The months in javascript are 0 based
-                        eventDateObject = new Date(Number(eventDateArray[2]), Number(eventDateArray[0]) - 1, Number(eventDateArray[1]));
-                    if (date.getTime() == eventDateObject.getTime()) {
+                    console.log(date.toDateString(), eventDate.date.toDateString());
+                    if (date.toDateString() === eventDate.date.toDateString()) {
                         eventOnDay = true;
                     }
                 });
@@ -138,6 +136,8 @@ class Month extends Component {
 
 Month.propTypes = {
     changeMonth: PropTypes.func,
+    editEvent: PropTypes.func,
+    newEvent: PropTypes.func,
     month: PropTypes.number,
     year: PropTypes.number,
     //Is the following necessary? We already defined this above
@@ -146,14 +146,14 @@ Month.propTypes = {
         slug: PropTypes.string,
         status: PropTypes.string,
         link: PropTypes.string,
-        title: PropTypes.shape({rendered: PropTypes.string}),
-        content: PropTypes.shape({rendered: PropTypes.string}),
+        title: PropTypes.string,
+        content: PropTypes.string,
         //calendar_color: PropTypes.string,
         //calendar_name: PropTypes.string,
         //recurrence_type: PropTypes.oneOf(["date_list", "weekly"]),
         recurring_date_list: PropTypes.arrayOf(PropTypes.shape({days_of_week: PropTypes.array, start_time: PropTypes.string, end_time: PropTypes.string})),
         exceptions: PropTypes.arrayOf(PropTypes.shape({date: PropTypes.string, start_time: PropTypes.string, end_time: PropTypes.string})),
-        date_list: PropTypes.arrayOf(PropTypes.shape({date: PropTypes.string, start_time: PropTypes.string, end_time: PropTypes.string}))
+        date_list: PropTypes.arrayOf(PropTypes.shape({date: PropTypes.date, start_time: PropTypes.string, end_time: PropTypes.string}))
     }))
 }
 

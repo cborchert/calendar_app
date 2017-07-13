@@ -101,6 +101,36 @@ class EventFormSchedule extends Component {
 
     }
 
+    updateSchedule() {
+
+        let key,
+            schedule = this.state.schedule,
+            parsedSchedule = [];
+        if (this.props.format === 'week') {
+            key = 'recurring_date_list';
+            schedule.forEach((dayOfWeek, i) => {
+                let times = [];
+                dayOfWeek.times.forEach(time => {
+                    times.push({start_time: time.start, end_time: time.end})
+                });
+                console.log(times);
+                if (times.length > 0) {
+                    parsedSchedule.push({days_of_week: [i], times: times});
+                }
+            });
+        } else if (this.props.format === 'dates') {
+            key = 'date_list';
+            schedule.forEach((date) => {
+                let times = [];
+                date.times.forEach(time => {
+                    parsedSchedule.push({date: date.name, start_time: time.start, end_time: time.end});
+                });
+            });
+        }
+        this.props.handleEventChange(key, parsedSchedule);
+
+    }
+
     newDate = () => {
         console.log('newDate');
         let schedule = this.state.schedule;
@@ -123,6 +153,7 @@ class EventFormSchedule extends Component {
             schedule = this.state.schedule;
         schedule[dayIndex].times.splice(timeIndex, 1);
         this.setState({schedule});
+        this.updateSchedule();
     }
 
     setScheduleTimes(targetIndex, times) {
@@ -132,13 +163,16 @@ class EventFormSchedule extends Component {
         if (dayIndex == null) {
             schedule.push({times: [times]});
             this.setState({schedule});
+            this.updateSchedule();
 
         } else if (timeIndex == null) {
             schedule[dayIndex].times.push(times);
             this.setState({schedule});
+            this.updateSchedule();
         } else {
             schedule[dayIndex].times[timeIndex] = times;
             this.setState({schedule});
+            this.updateSchedule();
         }
     }
 
@@ -188,7 +222,7 @@ class EventFormSchedule extends Component {
             start: this.state.dialogStartTime,
             end: this.state.dialogEndTime
         }
-        this.setScheduleTimes(this.state.dialogTarget, time)
+        this.setScheduleTimes(this.state.dialogTarget, time);
         this.discardDialog();
 
     }
@@ -206,7 +240,7 @@ class EventFormSchedule extends Component {
                                 {this.props.format === "dates"
                                     ? <DatePicker label='Date' active={this.state.openDatePicker === i} sundayFirstDayOfWeek autoOk onChange={this.handleDateChange.bind(this, i)} value={day.name}/>
                                     : <Input type='text' label='Day of Week' name='dayOfWeek' value={day.name} disabled/>
-                                }
+}
                             </div>
                             <div className="EventFormSchedule__day__times">
                                 {day.times.map((time, j) => {
@@ -263,4 +297,3 @@ EventFormSchedule.defaultProps = {
 };
 
 export default EventFormSchedule;
-EventFormSchedule;
