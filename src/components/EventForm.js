@@ -46,10 +46,9 @@ class EventForm extends Component {
     }
 
     render() {
-        return (
-            <div className="EventForm">
-                <Input type='text' label='Title' name='title' value={this.state.title} onChange={this.handleChange.bind(this, 'title')}/>
-                <Input type='text' multiline label='Description' value={this.state.content} onChange={this.handleChange.bind(this, 'content')}/>
+
+        let tabs = this.props.eventType === 'events'
+            ? (
                 <Tabs className="EventForm__tabs" index={this.state.tabIndex} onChange={this.handleTabChange.bind(this)}>
                     <Tab label='Weekly Schedule'>
                         <EventFormSchedule days={this.state.weeklySchedule} handleChange={this.handleChange.bind(this)} format="week"/>
@@ -58,6 +57,21 @@ class EventForm extends Component {
                         <EventFormSchedule days={this.state.dateSchedule} handleChange={this.handleChange.bind(this)} format="dates"/>
                     </Tab>
                 </Tabs>
+            )
+            : (
+                <Tabs className="EventForm__tabs" index={this.state.tabIndex} onChange={this.handleTabChange.bind(this)}>
+                    <Tab label='Cancellation Schedule'>
+                        <EventFormSchedule days={this.state.dateSchedule} handleChange={this.handleChange.bind(this)} format="dates"/>
+                    </Tab>
+                </Tabs>
+
+            );
+
+        return (
+            <div className="EventForm">
+                <Input type='text' label='Title' name='title' value={this.state.title} onChange={this.handleChange.bind(this, 'title')}/>
+                <Input type='text' multiline label='Description' value={this.state.content} onChange={this.handleChange.bind(this, 'content')}/>
+                <div>{tabs}</div>
                 <div className="EventForm__footer">
                     <Button label="Cancel" accent onClick={this.props.cancelEventChanges}/>
                     <Button icon="check" label="Save" primary raised onClick={this.saveEvent.bind(this)}/>

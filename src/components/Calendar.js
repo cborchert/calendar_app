@@ -13,12 +13,19 @@ class Calendar extends Component {
         this.props.newEvent('events');
 
     }
+    newCancellationHandler(e) {
+
+        e.preventDefault();
+        this.props.newEvent('cancellations');
+
+    }
 
     render() {
         return (
             <div className="Calendar">
                 <div className="Calendar__header">
-                    <Button icon='add' label='New Event' primary raised onClick={this.newEventHandler.bind(this)}/>
+                    <p><Button icon='add' label='New Event' primary raised onClick={this.newEventHandler.bind(this)}/></p>
+                    <p><Button icon='add' label='New Cancellation' accent raised onClick={this.newCancellationHandler.bind(this)}/></p>
                 </div>
                 <div className="Calendar__body">
                     <Month events={this.props.data.events} newEvent={this.props.newEvent} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>

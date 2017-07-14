@@ -66,14 +66,15 @@ class App extends Component {
             selectedEvent = event;
 
         selectedEvent.id = Number(String(Date.now()) + String(Math.floor(Math.random() * 1000)));
-
+        console.log(data.calendars[this.state.calendarId][type]);
         if (index !== null && data.calendars[this.state.calendarId][type] && data.calendars[this.state.calendarId][type][index]) {
-
+            console.log('edited ' + type)
             data.calendars[this.state.calendarId][type][index] = selectedEvent;
-
         } else if (data.calendars[this.state.calendarId][type]) {
-
+            console.log('new ' + type)
             data.calendars[this.state.calendarId][type].push(selectedEvent);
+        } else {
+            console.log('couldn\'t do anything with ' + type)
         }
 
         this.setState({data: data});
@@ -108,8 +109,10 @@ class App extends Component {
 
             selectedEvent = this.state.data.calendars[this.state.calendarId][type][index];
             eventDialog.title = 'Edit';
-            if (type == 'events') {
+            if (type === 'events') {
                 eventDialog.title += ' Event';
+            } else if (type === 'cancellations') {
+                eventDialog.title += ' Cancellation';
             }
             let title = selectedEvent.title;
             if (title !== "") {
@@ -119,8 +122,10 @@ class App extends Component {
         } else {
 
             eventDialog.title = 'Create New ';
-            if (type == 'events') {
+            if (type === 'events') {
                 eventDialog.title += ' Event';
+            } else if (type === 'cancellations') {
+                eventDialog.title += ' Cancellation';
             }
 
         }

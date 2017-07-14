@@ -151,90 +151,22 @@ var data = {
         {
             name: 'Calendar 1',
             id: 1,
-            events: [
-                // {
-                //     id: 0,
-                //     slug: "event1",
-                //     status: "publish",
-                //     link: "http://www.google.com",
-                //     title: {
-                //         rendered: "Recurring t/th"
-                //     },
-                //     content: {
-                //         rendered: "<p>eram quid sint enim aute magna multos cillum minim amet esse legam culpa legam ipsum legam veniam elit legam tamen</p>"
-                //     },
-                //     //calendar_color: "#dd44ad",
-                //     //calendar_name: "",
-                //     recurrence_type: "weekly", //weekly or date_list
-                //     recurring_date_list: [
-                //         {
-                //             days_of_week: [
-                //                 "2", "4",
-                //             ],
-                //             start_time: "7:00 pm",
-                //             end_time: "8:00 pm",
-                //         }
-                //     ]
-                // }, {
-                //     id: 1,
-                //     slug: "event2",
-                //     status: "publish",
-                //     link: "http://www.google.com",
-                //     title: {
-                //         rendered: "Recurring m/t/f with an exception"
-                //     },
-                //     content: {
-                //         rendered: "<p>nulla esse aute illum minim export eram tamen ipsum irure labore elit elit export velit nisi quis veniam summis quid</p>"
-                //     },
-                //     //calendar_color: "#dd44ad",
-                //     //calendar_name: "",
-                //     recurrence_type: "weekly", //weekly or date_list
-                //     recurring_date_list: [
-                //         {
-                //             days_of_week: [
-                //                 "1", "2", "5",
-                //             ],
-                //             start_time: "12:00 pm",
-                //             end_time: "3:00 pm",
-                //         }
-                //     ],
-                //     exceptions: [
-                //         {
-                //             date: "07/11/2017",
-                //             start_time: "9:00am",
-                //             end_time: "12:00pm"
-                //         },
-                //     ]
-                // }, {
-                //     id: 2,
-                //     slug: "event2",
-                //     status: "publish",
-                //     link: "http://www.google.com",
-                //     title: {
-                //         rendered: "Singleton Event 7/4 - 7/6"
-                //     },
-                //     content: {
-                //         rendered: "<p>elit enim quis aliqua quis malis enim dolore quae quem quae magna enim ipsum export summis multos illum ipsum eram</p>"
-                //     },
-                //     //calendar_color: "#dd44ad",
-                //     //calendar_name: "",
-                //     recurrence_type: "date_list", //weekly or date_list
-                //     date_list: [
-                //         {
-                //             date: "07/04/2017",
-                //             start_time: "9:00am",
-                //             end_time: "12:00pm"
-                //         }, {
-                //             date: "07/05/2017",
-                //             start_time: "9:00am",
-                //             end_time: "12:00pm"
-                //         }, {
-                //             date: "07/06/2017",
-                //             start_time: "9:00am",
-                //             end_time: "12:00pm"
-                //         },
-                //     ],
-                // },
+            events: [],
+            cancellations: [
+                {
+                    id: -1,
+                    title: '',
+                    content: '',
+                    cancelAllEvents: false,
+                    eventIdsCancelled: [],
+                    date_list: [
+                        {
+                            date: '',
+                            start_time: '',
+                            end_time: ''
+                        }
+                    ]
+                }
             ]
         }
     ]
