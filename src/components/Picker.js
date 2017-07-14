@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import List from 'react-toolbox/lib/list/List';
-import ListItem from 'react-toolbox/lib/list/ListItem';
 import ListCheckbox from 'react-toolbox/lib/list/ListCheckbox';
+import Input from 'react-toolbox/lib/input/Input';
 import '../styles/Picker.css';
 
 class Picker extends Component {
@@ -14,11 +14,15 @@ class Picker extends Component {
             items: this.props.items,
             available: this.props.items,
             selected: [],
-            searchValue: ''
-
+            selectedSearch: '',
+            availableSearch: ''
         };
 
     }
+
+    handleChange = (name, value) => {
+        this.setState({[name]: value});
+    };
 
     componentWillReceiveProps(newProps) {
 
@@ -75,6 +79,26 @@ class Picker extends Component {
     }
 
     render() {
+
+        let available = this.state.available.filter(element => {
+                if (this.state.availableSearch === '') {
+                    return true;
+                } else {
+                    return ((String(element.title).toLowerCase().indexOf(this.state.availableSearch.toLowerCase()) > -1) || (String(element.content).toLowerCase().indexOf(this.state.availableSearch.toLowerCase()) > -1));
+                }
+            }).map(element => {
+                return (<ListCheckbox className="Picker__list-item" key={element.id} checked={false} caption={element.title} onChange={this.setItemSelected.bind(this, element.id, true)}/>);
+            }),
+            selected = this.state.selected.filter(element => {
+                if (this.state.selectedSearch === '') {
+                    return true;
+                } else {
+                    return ((String(element.title).toLowerCase().indexOf(this.state.selectedSearch.toLowerCase()) > -1) || (String(element.content).toLowerCase().indexOf(this.state.selectedSearch.toLowerCase()) > -1));
+                }
+            }).map(element => {
+                return (<ListCheckbox className="Picker__list-item" key={element.id} checked={true} caption={element.title} onChange={this.setItemSelected.bind(this, element.id, false)}/>);
+            });
+
         return (
 
             <div className="Picker">
@@ -84,19 +108,23 @@ class Picker extends Component {
                 <div className="Picker__body">
                     <div className="Picker__pane Picker__selected">
                         <h3>Selected</h3>
+                        <Input type='text' icon="search" label='Search Selected' name='search-selected' value={this.state.selectedSearch} onChange={this.handleChange.bind(this, 'selectedSearch')}/>
                         <List selectable ripple>
-                            {this.state.selected.map(element => {
-                                return (<ListCheckbox className="Picker__list-item" key={element.id} checked={true} caption={element.title} onChange={this.setItemSelected.bind(this, element.id, false)}/>);
-                            })}
+                            {selected}
                         </List>
+                        <div>
+                            <em>{`Showing ${selected.length} of ${this.state.selected.length} items`}</em>
+                        </div>
                     </div>
                     <div className="Picker__pane Picker__available">
                         <h3>Available</h3>
+                        <Input type='text' icon="search" label='Search Available' name='search-available' value={this.state.availableSearch} onChange={this.handleChange.bind(this, 'availableSearch')}/>
                         <List selectable ripple>
-                            {this.state.available.map(element => {
-                                return (<ListCheckbox className="Picker__list-item" key={element.id} checked={false} caption={element.title} onChange={this.setItemSelected.bind(this, element.id, true)}/>);
-                            })}
+                            {available}
                         </List>
+                        <div>
+                            <em>{`Showing ${available.length} of ${this.state.available.length} items`}</em>
+                        </div>
                     </div>
                 </div>
 
