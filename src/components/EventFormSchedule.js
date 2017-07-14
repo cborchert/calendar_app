@@ -96,13 +96,16 @@ class EventFormSchedule extends Component {
     removeDate = (dayIndex) => {
 
         let schedule = this.state.schedule;
+        console.log(schedule);
         schedule.splice(dayIndex, 1);
+        console.log(schedule);
         this.setState({schedule});
+        this.updateSchedule();
 
     }
 
     updateSchedule() {
-
+        console.log('updating schedule');
         let key,
             schedule = this.state.schedule,
             parsedSchedule = [];
@@ -139,12 +142,14 @@ class EventFormSchedule extends Component {
             schedule,
             openDatePicker: schedule.length - 1
         });
+        this.updateSchedule();
     }
 
     handleDateChange = (dayIndex, value) => {
         let schedule = this.state.schedule;
         schedule[dayIndex].name = value;
         this.setState({schedule, openDatePicker: -1});
+        this.updateSchedule();
     }
 
     removeScheduleTime(targetIndex) {
@@ -240,7 +245,7 @@ class EventFormSchedule extends Component {
                                 {this.props.format === "dates"
                                     ? <DatePicker label='Date' active={this.state.openDatePicker === i} sundayFirstDayOfWeek autoOk onChange={this.handleDateChange.bind(this, i)} value={day.name}/>
                                     : <Input type='text' label='Day of Week' name='dayOfWeek' value={day.name} disabled/>
-}
+                                }
                             </div>
                             <div className="EventFormSchedule__day__times">
                                 {day.times.map((time, j) => {

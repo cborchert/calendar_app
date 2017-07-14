@@ -19,8 +19,15 @@ class EventForm extends Component {
         let event = this.state.event;
         event[name] = value
         this.setState({event});
-        this.props.updateSelectedEvent(this.state.event);
+
     };
+
+    saveEvent(e) {
+
+        e.preventDefault();
+        this.props.updateSelectedEvent(this.state.event);
+
+    }
 
     render() {
         return (
@@ -29,6 +36,11 @@ class EventForm extends Component {
                 <Input type='text' multiline label='Description' value={this.state.event.content} onChange={this.handleEventChange.bind(this, 'content')}/>
                 <EventFormSchedule days={this.state.event.recurring_date_list} handleEventChange={this.handleEventChange.bind(this)} format="week"/>
                 <EventFormSchedule days={this.state.event.date_list} handleEventChange={this.handleEventChange.bind(this)} format="dates"/>
+                <div className="EventForm__footer">
+
+                    <Button label="Cancel" accent onClick={this.props.cancelSelectedEvent}/>
+                    <Button icon="check" label="Save" primary raised onClick={this.saveEvent.bind(this)}/>
+                </div>
             </div>
         );
     }

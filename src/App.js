@@ -41,16 +41,6 @@ class App extends Component {
         };
     }
 
-    dialogActions = [
-        {
-            label: "Cancel",
-            onClick: this.discardEventDialog.bind(this)
-        }, {
-            label: "Save",
-            onClick: this.saveEventDialog.bind(this)
-        }
-    ];
-
     discardEventDialog() {
 
         this.setState({
@@ -64,12 +54,12 @@ class App extends Component {
 
     }
 
-    saveEventDialog() {
+    updateSelectedEvent(event) {
 
         let type = this.state.eventDialog.type,
             index = this.state.eventDialog.eventIndex,
             data = this.state.data,
-            selectedEvent = this.state.selectedEvent;
+            selectedEvent = event;
 
         selectedEvent.id = Number(String(Date.now()) + String(Math.floor(Math.random() * 1000)));
 
@@ -84,12 +74,6 @@ class App extends Component {
 
         this.setState({data});
         this.discardEventDialog();
-
-    }
-
-    updateSelectedEvent(event) {
-
-        this.setState({selectedEvent: event});
 
     }
 
@@ -173,8 +157,8 @@ class App extends Component {
                     <div className="App-header">
                         <img src={logo} className="App-logo" alt="logo"/>
                     </div>
-                    <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} actions={this.dialogActions} type="large" className="Dialog--scrollable Dialog--mid-width">
-                        <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
+                    <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} type="large" className="Dialog--scrollable Dialog--mid-width">
+                        <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelSelectedEvent={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
                     </Dialog>
                     <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} newEvent={this.newEvent.bind(this)} editEvent={this.editEvent.bind(this)} date={this.state.date}/>
 

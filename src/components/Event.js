@@ -7,7 +7,9 @@ class Event extends Component {
     render() {
         return (
             <div className="Event">
-                {this.props.data.title}
+                <p>{this.props.data.title}</p>
+                <p>{this.props.data.times.start}</p>
+                <p>{this.props.data.times.end}</p>
             </div>
         );
     }

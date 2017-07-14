@@ -12,16 +12,28 @@ class Month extends Component {
     //TODO: optimize filterEventsByDate: consider using undercores
     filterEventsByDate(date) {
 
-        let dayOfWeek = date.getDay();
-        return this.props.events.filter(event => {
-            console.log(event);
+        let dayOfWeek = date.getDay(),
+        dateEvents = [];
+
+        this.props.events.forEach(event => {
             let eventOnDay = false;
             //Check if the day of the week is in the recurring date list
             if (event.recurring_date_list) {
                 event.recurring_date_list.forEach(item => {
                     item.days_of_week.forEach(day => {
                         if (day == dayOfWeek) {
-                            eventOnDay = true;
+                            item.times.forEach( time => {
+                                let dateEvent = {
+                                    id: event.id,
+                                    slug: event.slug,
+                                    status: event.status,
+                                    link: event.link,
+                                    title: event.title,
+                                    content: event.content,
+                                    times: {start:time.start_time, end: time.end_time}
+                                };
+                                dateEvents.push(dateEvent);
+                            });
                         }
                     });
                 });
@@ -29,14 +41,24 @@ class Month extends Component {
             //Check if the date is in the date list
             if (event.date_list) {
                 event.date_list.forEach(eventDate => {
-                    console.log(date.toDateString(), eventDate.date.toDateString());
                     if (date.toDateString() === eventDate.date.toDateString()) {
-                        eventOnDay = true;
+                        let dateEvent = {
+                            id: event.id,
+                            slug: event.slug,
+                            status: event.status,
+                            link: event.link,
+                            title: event.title,
+                            content: event.content,
+                            times: {start:eventDate.start_time, end: eventDate.end_time}
+                        };
+                        dateEvents.push(dateEvent);
                     }
                 });
             }
-            return eventOnDay;
-        })
+        });
+
+        return dateEvents;
+
     }
 
     onMonthBack = function(e) {
