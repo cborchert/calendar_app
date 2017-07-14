@@ -158,7 +158,7 @@ var data = {
                     title: '',
                     content: '',
                     cancelAllEvents: false,
-                    eventIdsCancelled: [],
+                    cancelledEventIds: [],
                     date_list: [
                         {
                             date: '',

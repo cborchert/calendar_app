@@ -185,10 +185,8 @@ class App extends Component {
                     <div className="App-header">
                         <img src={logo} className="App-logo" alt="logo"/>
                     </div>
-                    <Picker title="Select Events" items={this.state.data.calendars[this.state.calendarId].events}/>
-
                     <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} type="large" onEscKeyDown={this.discardEventDialog.bind(this)} className="Dialog--scrollable Dialog--mid-width">
-                        <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelEventChanges={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
+                        <EventForm events={this.state.data.calendars[this.state.calendarId].events} event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelEventChanges={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
                     </Dialog>
                     <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} newEvent={this.newEvent.bind(this)} editEvent={this.editEvent.bind(this)} deleteEvent={this.deleteEvent.bind(this)} date={this.state.date}/>
 

@@ -9,11 +9,25 @@ class Picker extends Component {
     constructor(props) {
         super(props);
 
+        let availableItems = [],
+            selectedItems = [];
+        this.props.items.forEach(item => {
+            let itemInSelected = false;
+            this.props.selectedItems.forEach(selectedItem => {
+                if (item.id == selectedItem.id) {
+                    itemInSelected = true;
+                }
+            });
+            if (itemInSelected) {
+                selectedItems.push(item);
+            } else {
+                availableItems.push(item);
+            }
+        });
         this.state = {
-
             items: this.props.items,
-            available: this.props.items,
-            selected: [],
+            available: availableItems,
+            selected: selectedItems,
             selectedSearch: '',
             availableSearch: ''
         };
@@ -75,6 +89,8 @@ class Picker extends Component {
         } else {
             this.setState({available: toList, selected: fromList});
         }
+
+        this.props.onSelectedChange(this.state.selected);
 
     }
 
