@@ -108,7 +108,8 @@ class EventFormSchedule extends Component {
             schedule = this.state.schedule,
             parsedSchedule = [];
         if (this.props.format === 'week') {
-            key = 'recurring_date_list';
+            // key = 'recurring_date_list';
+            key = 'weeklySchedule';
             schedule.forEach((dayOfWeek, i) => {
                 let times = [];
                 dayOfWeek.times.forEach(time => {
@@ -119,7 +120,8 @@ class EventFormSchedule extends Component {
                 }
             });
         } else if (this.props.format === 'dates') {
-            key = 'date_list';
+            // key = 'date_list';
+            key = 'dateSchedule';
             schedule.forEach((date) => {
                 let times = [];
                 date.times.forEach(time => {
@@ -127,7 +129,8 @@ class EventFormSchedule extends Component {
                 });
             });
         }
-        this.props.handleEventChange(key, parsedSchedule);
+        // this.props.handleEventChange(key, parsedSchedule);
+        this.props.handleChange(key, parsedSchedule);
 
     }
 

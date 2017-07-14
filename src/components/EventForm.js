@@ -11,10 +11,13 @@ class EventForm extends Component {
     constructor(props) {
         console.log('EventForm constructor');
         super(props);
+        let event = this.props.event;
         this.state = {
-            event: this.props.event
+            title: event.title,
+            content: event.content,
+            weeklySchedule: event.recurring_date_list,
+            dateSchedule: event.date_list
         };
-        console.log(this.props.event);
     }
 
     handleEventChange(name, value) {
@@ -26,19 +29,31 @@ class EventForm extends Component {
 
     }
 
+    handleChange(key, e) {
+        console.log(e);
+        this.setState({[key]: e});
+    }
+
     saveEvent(e) {
         console.log('EventForm saveEvent');
         e.preventDefault();
-        this.props.updateSelectedEvent(this.state.event);
+        let event = {
+            id: this.props.event.id,
+            recurring_date_list: this.state.weeklySchedule,
+            date_list: this.state.dateSchedule,
+            title: this.state.title,
+            content: this.state.content
+        };
+        this.props.updateSelectedEvent(event);
     }
 
     render() {
         return (
             <div className="EventForm">
-                <Input type='text' label='Title' name='title' value={this.state.event.title} onChange={this.handleEventChange.bind(this, 'title')}/>
-                <Input type='text' multiline label='Description' value={this.state.event.content} onChange={this.handleEventChange.bind(this, 'content')}/>
-                <EventFormSchedule days={this.state.event.recurring_date_list} handleEventChange={this.handleEventChange.bind(this)} format="week"/>
-                <EventFormSchedule days={this.state.event.date_list} handleEventChange={this.handleEventChange.bind(this)} format="dates"/>
+                <Input type='text' label='Title' name='title' value={this.state.title} onChange={this.handleChange.bind(this, 'title')}/>
+                <Input type='text' multiline label='Description' value={this.state.content} onChange={this.handleChange.bind(this, 'content')}/>
+                <EventFormSchedule days={this.state.weeklySchedule} handleChange={this.handleChange.bind(this)} format="week"/>
+                <EventFormSchedule days={this.state.dateSchedule} handleChange={this.handleChange.bind(this)} format="dates"/>
                 <div className="EventForm__footer">
                     <Button label="Cancel" accent onClick={this.props.cancelEventChanges}/>
                     <Button icon="check" label="Save" primary raised onClick={this.saveEvent.bind(this)}/>
