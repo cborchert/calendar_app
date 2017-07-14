@@ -17,7 +17,7 @@ class Day extends Component {
                 <div className="Day__inner-text">{this.props.innerText}</div>
                 <div className="Day__events">
                     {this.props.events.map((event, i) => {
-                        return (<Event key={i} className="Event" data={event}/>);
+                        return (<Event key={i} className="Event" data={event} editEvent={this.props.editEvent}/>);
                     })}
                 </div>
             </div>
@@ -26,6 +26,7 @@ class Day extends Component {
 }
 
 Day.propTypes = {
+    editEvent: PropTypes.func,
     innerText: PropTypes.string,
     isHeader: PropTypes.bool,
     date: PropTypes.string,
@@ -36,6 +37,7 @@ Day.propTypes = {
         link: PropTypes.string,
         title: PropTypes.string,
         content: PropTypes.string,
+        times: PropTypes.shape({start: PropTypes.string, end: PropTypes.string}),
         //calendar_color: PropTypes.string,
         //calendar_name: PropTypes.string,
         //recurrence_type: PropTypes.oneOf(["date_list", "weekly"]),

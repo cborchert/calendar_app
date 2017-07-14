@@ -9,24 +9,27 @@ import PropTypes from 'prop-types';
 class EventForm extends Component {
 
     constructor(props) {
+        console.log('EventForm constructor');
         super(props);
         this.state = {
             event: this.props.event
         };
+        console.log(this.props.event);
     }
 
     handleEventChange(name, value) {
+        console.log(this);
+        console.log('EventForm handleEventChange');
         let event = this.state.event;
-        event[name] = value
-        this.setState({event});
+        event[name] = value;
+        this.setState({event: event});
 
-    };
+    }
 
     saveEvent(e) {
-
+        console.log('EventForm saveEvent');
         e.preventDefault();
         this.props.updateSelectedEvent(this.state.event);
-
     }
 
     render() {
@@ -37,8 +40,7 @@ class EventForm extends Component {
                 <EventFormSchedule days={this.state.event.recurring_date_list} handleEventChange={this.handleEventChange.bind(this)} format="week"/>
                 <EventFormSchedule days={this.state.event.date_list} handleEventChange={this.handleEventChange.bind(this)} format="dates"/>
                 <div className="EventForm__footer">
-
-                    <Button label="Cancel" accent onClick={this.props.cancelSelectedEvent}/>
+                    <Button label="Cancel" accent onClick={this.props.cancelEventChanges}/>
                     <Button icon="check" label="Save" primary raised onClick={this.saveEvent.bind(this)}/>
                 </div>
             </div>

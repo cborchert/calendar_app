@@ -40,9 +40,10 @@ class EventFormSchedule extends Component {
                 }
             ];
             this.props.days.forEach(day => {
-                console.log(day);
                 day.days_of_week.forEach(dayOfWeek => {
-                    schedule[Number(dayOfWeek)].times.push({start: day.start_time, end: day.end_time});
+                    day.times.forEach(time=>{
+                        schedule[Number(dayOfWeek)].times.push({start: time.start_time, end: time.end_time});
+                    })
                 });
             });
         } else if (this.props.format == "dates") {
@@ -96,16 +97,13 @@ class EventFormSchedule extends Component {
     removeDate = (dayIndex) => {
 
         let schedule = this.state.schedule;
-        console.log(schedule);
         schedule.splice(dayIndex, 1);
-        console.log(schedule);
         this.setState({schedule});
         this.updateSchedule();
 
     }
 
     updateSchedule() {
-        console.log('updating schedule');
         let key,
             schedule = this.state.schedule,
             parsedSchedule = [];
@@ -116,7 +114,6 @@ class EventFormSchedule extends Component {
                 dayOfWeek.times.forEach(time => {
                     times.push({start_time: time.start, end_time: time.end})
                 });
-                console.log(times);
                 if (times.length > 0) {
                     parsedSchedule.push({days_of_week: [i], times: times});
                 }
@@ -135,7 +132,6 @@ class EventFormSchedule extends Component {
     }
 
     newDate = () => {
-        console.log('newDate');
         let schedule = this.state.schedule;
         schedule.push({name: '', times: []});
         this.setState({

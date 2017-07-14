@@ -19,6 +19,7 @@ import './styles/material-design-styles.css';
 class App extends Component {
 
     constructor() {
+        console.log('constructor');
         super();
         let date = new Date();
         this.state = {
@@ -43,6 +44,7 @@ class App extends Component {
 
     discardEventDialog() {
 
+        console.log("cancelSelectedEvent");
         this.setState({
             eventDialog: {
                 active: false,
@@ -50,12 +52,14 @@ class App extends Component {
                 type: '',
                 eventIndex: null
             }
-        })
+        });
 
     }
 
     updateSelectedEvent(event) {
 
+        console.log("updateSelectedEvent");
+        console.log(event);
         let type = this.state.eventDialog.type,
             index = this.state.eventDialog.eventIndex,
             data = this.state.data,
@@ -72,21 +76,23 @@ class App extends Component {
             data.calendars[this.state.calendarId][type].push(selectedEvent);
         }
 
-        this.setState({data});
+        this.setState({data: data});
         this.discardEventDialog();
 
     }
 
     openEventDialog() {
 
+        console.log('openEventDialog');
         let eventDialog = this.state.eventDialog;
         eventDialog.active = true;
-        this.setState({eventDialog});
+        this.setState({eventDialog:eventDialog});
 
     }
 
     setSelectedEvent(type, index) {
 
+        console.log('setSelectedEvent');
         let eventDialog = this.state.eventDialog,
             selectedEvent = {
                 id: -1,
@@ -98,14 +104,18 @@ class App extends Component {
 
         eventDialog.type = type;
         eventDialog.eventIndex = index;
-
         if (index !== null && this.state.data.calendars[this.state.calendarId][type] && this.state.data.calendars[this.state.calendarId][type][index]) {
+
+            selectedEvent = this.state.data.calendars[this.state.calendarId][type][index];
             eventDialog.title = 'Edit';
             if (type == 'events') {
-                eventDialog.title = ' Event: ';
+                eventDialog.title += ' Event';
             }
-            eventDialog.title += this.state.data.calendars[this.state.calendarId][type][index].name;
-            selectedEvent = this.state.data.calendars[this.state.calendarId][type][index];
+            let title = selectedEvent.title;
+            if(title !== ""){
+                eventDialog.title += ': '+title;
+            }
+
 
         } else {
 
@@ -116,12 +126,13 @@ class App extends Component {
 
         }
 
-        this.setState({eventDialog, selectedEvent});
+        this.setState({eventDialog:eventDialog, selectedEvent:selectedEvent});
 
     }
 
     editEvent(type, index) {
 
+        console.log('editEvent', type, index);
         this.setSelectedEvent(type, index);
         this.openEventDialog();
 
@@ -129,12 +140,14 @@ class App extends Component {
 
     newEvent(type) {
 
+        console.log('newEvent');
         this.setSelectedEvent(type, null);
         this.openEventDialog();
 
     }
 
     changeMonth(direction) {
+        console.log('changeMonth');
         let date = this.state.date;
         date.setMonth(date.getMonth() + direction);
         this.setState({date});
@@ -142,7 +155,7 @@ class App extends Component {
     }
 
     addEvent(event) {
-
+        console.log('addEvent');
         let data = this.state.data;
         data.calendars[this.state.calendarId].events.push(event);
         this.setState({data});
@@ -158,10 +171,9 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo"/>
                     </div>
                     <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} type="large" className="Dialog--scrollable Dialog--mid-width">
-                        <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelSelectedEvent={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
+                        <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelEventChanges={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
                     </Dialog>
                     <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} newEvent={this.newEvent.bind(this)} editEvent={this.editEvent.bind(this)} date={this.state.date}/>
-
                 </div>
             </ThemeProvider>
         );

@@ -44,7 +44,8 @@
       "INPUT",
       "RIPPLE",
       "DIALOG",
-      "OVERLAY"
+      "OVERLAY",
+      "MENU"
     ],
     "customProperties": {
       "animation-duration": "0.3s",
