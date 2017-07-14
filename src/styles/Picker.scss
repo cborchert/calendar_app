@@ -1,0 +1,41 @@
+@import 'vars';
+
+.Picker {
+
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1020px;
+    margin: 20px auto;
+    background-color: $white;
+    color: $flat-midnight-blue;
+    border: 1px solid $month-week-header-bg;
+    // border-radius: $border-radius;
+    // box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+
+    &__header {
+        font-size: 2rem;
+    }
+
+    &__body {
+        box-sizing: border-box;
+        padding: 2rem;
+        font-size: 0;
+    }
+
+    &__pane {
+        display: inline-block;
+        font-size: 1.6rem;
+        box-sizing: border-box;
+        width: calc(50% - 4rem);
+        margin: 2rem;
+        padding: 1rem;
+        background-color: $month-week-header-bg;
+        border-radius: $border-radius;
+        vertical-align: top;
+    }
+
+    &__list-item {
+        background-color: $white;
+        box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+}

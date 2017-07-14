@@ -46,7 +46,8 @@
       "DIALOG",
       "OVERLAY",
       "MENU",
-      "TABS"
+      "TABS",
+      "LIST"
     ],
     "customProperties": {
       "animation-duration": "0.3s",
