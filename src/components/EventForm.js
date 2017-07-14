@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import Input from 'react-toolbox/lib/input';
 import Button from 'react-toolbox/lib/button/Button';
-import Checkbox from 'react-toolbox/lib/checkbox';
+import Tabs from 'react-toolbox/lib/tabs/Tabs';
+import Tab from 'react-toolbox/lib/tabs/Tab';
 import EventFormSchedule from './EventFormSchedule';
 import PropTypes from 'prop-types';
+import '../styles/EventForm.css';
 
 //TODO: this and lower elements are too stateful
 class EventForm extends Component {
@@ -16,13 +18,18 @@ class EventForm extends Component {
             title: event.title,
             content: event.content,
             weeklySchedule: event.recurring_date_list,
-            dateSchedule: event.date_list
+            dateSchedule: event.date_list,
+            tabIndex: 0
         };
     }
 
-    handleChange(key, e) {
+    handleTabChange(tabIndex) {
+        this.setState({tabIndex});
+    }
+
+    handleChange(key, value) {
         console.log('EventForm handleChange');
-        this.setState({[key]: e});
+        this.setState({[key]: value});
     }
 
     saveEvent(e) {
@@ -43,8 +50,14 @@ class EventForm extends Component {
             <div className="EventForm">
                 <Input type='text' label='Title' name='title' value={this.state.title} onChange={this.handleChange.bind(this, 'title')}/>
                 <Input type='text' multiline label='Description' value={this.state.content} onChange={this.handleChange.bind(this, 'content')}/>
-                <EventFormSchedule days={this.state.weeklySchedule} handleChange={this.handleChange.bind(this)} format="week"/>
-                <EventFormSchedule days={this.state.dateSchedule} handleChange={this.handleChange.bind(this)} format="dates"/>
+                <Tabs className="EventForm__tabs" index={this.state.tabIndex} onChange={this.handleTabChange.bind(this)}>
+                    <Tab label='Weekly Schedule'>
+                        <EventFormSchedule days={this.state.weeklySchedule} handleChange={this.handleChange.bind(this)} format="week"/>
+                    </Tab>
+                    <Tab label='Dates Schedule'>
+                        <EventFormSchedule days={this.state.dateSchedule} handleChange={this.handleChange.bind(this)} format="dates"/>
+                    </Tab>
+                </Tabs>
                 <div className="EventForm__footer">
                     <Button label="Cancel" accent onClick={this.props.cancelEventChanges}/>
                     <Button icon="check" label="Save" primary raised onClick={this.saveEvent.bind(this)}/>

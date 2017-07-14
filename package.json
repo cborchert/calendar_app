@@ -45,7 +45,8 @@
       "RIPPLE",
       "DIALOG",
       "OVERLAY",
-      "MENU"
+      "MENU",
+      "TABS"
     ],
     "customProperties": {
       "animation-duration": "0.3s",

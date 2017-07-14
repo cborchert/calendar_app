@@ -1,0 +1,10 @@
+@import 'vars';
+
+.EventForm {
+    &__tabs {
+        & > section {
+            padding: 0;
+        }
+
+    }
+}

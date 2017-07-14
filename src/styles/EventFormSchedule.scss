@@ -4,6 +4,7 @@
     padding: $padding;
 
     &__day {
+        position: relative;
         box-sizing: border-box;
         width: calc(100%/7 - 1rem);
         min-width: 120px;
@@ -46,6 +47,24 @@
 
                 cursor: pointer;
 
+            }
+        }
+
+        &__header {
+
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 1000;
+
+            .btn {
+                background-color: darken($month-week-header-bg, 10%);
+
+                &:active,
+                &:focus,
+                &:hover {
+                    background-color: darken($month-week-header-bg, 20%);
+                }
             }
         }
 

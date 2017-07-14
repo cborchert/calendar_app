@@ -41,7 +41,7 @@ class EventFormSchedule extends Component {
             ];
             this.props.days.forEach(day => {
                 day.days_of_week.forEach(dayOfWeek => {
-                    day.times.forEach(time=>{
+                    day.times.forEach(time => {
                         schedule[Number(dayOfWeek)].times.push({start: time.start_time, end: time.end_time});
                     })
                 });
@@ -240,11 +240,20 @@ class EventFormSchedule extends Component {
                 {this.state.schedule.map((day, i) => {
                     return (
                         <div key={i} className="EventFormSchedule__day">
+                            <div className="EventFormSchedule__day__header">
+                                {this.props.format == 'dates'
+                                    ? (
+                                        <button className="btn btn--circle btn--tiny" onClick={this.removeDate.bind(this, i)} aria-label="Remove Date">
+                                            <FontAwesome name="times"/>
+                                        </button>
+                                    )
+                                    : ''}
+                            </div>
                             <div className="EventFormSchedule__day__name">
                                 {this.props.format === "dates"
                                     ? <DatePicker label='Date' active={this.state.openDatePicker === i} sundayFirstDayOfWeek autoOk onChange={this.handleDateChange.bind(this, i)} value={day.name}/>
                                     : <Input type='text' label='Day of Week' name='dayOfWeek' value={day.name} disabled/>
-                                }
+}
                             </div>
                             <div className="EventFormSchedule__day__times">
                                 {day.times.map((time, j) => {
@@ -267,11 +276,6 @@ class EventFormSchedule extends Component {
                             </div>
                             <div className="EventFormSchedule__day__footer">
                                 <p><Button icon='add' floating primary mini onClick={this.openDialog.bind(this, [i, null])}/></p>
-                                <br/><br/> {this.props.format == 'dates'
-                                    ? (
-                                        <div><Button icon='delete' label='Remove' accent mini raised onClick={this.removeDate.bind(this, i)}/></div>
-                                    )
-                                    : ''}
                             </div>
 
                         </div>

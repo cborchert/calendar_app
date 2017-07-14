@@ -1,6 +1,7 @@
 .EventFormSchedule {
   padding: 2rem; }
   .EventFormSchedule__day {
+    position: relative;
     box-sizing: border-box;
     width: calc(100%/7 - 1rem);
     min-width: 120px;
@@ -30,6 +31,15 @@
         right: 2px; }
       .EventFormSchedule__day__time__body {
         cursor: pointer; }
+    .EventFormSchedule__day__header {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 1000; }
+      .EventFormSchedule__day__header .btn {
+        background-color: #c0cdd0; }
+        .EventFormSchedule__day__header .btn:active, .EventFormSchedule__day__header .btn:focus, .EventFormSchedule__day__header .btn:hover {
+          background-color: #a2b5bb; }
     .EventFormSchedule__day__footer {
       padding: 2rem 0.5rem;
       text-align: center; }
