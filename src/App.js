@@ -86,7 +86,7 @@ class App extends Component {
         console.log('openEventDialog');
         let eventDialog = this.state.eventDialog;
         eventDialog.active = true;
-        this.setState({eventDialog:eventDialog});
+        this.setState({eventDialog: eventDialog});
 
     }
 
@@ -112,10 +112,9 @@ class App extends Component {
                 eventDialog.title += ' Event';
             }
             let title = selectedEvent.title;
-            if(title !== ""){
-                eventDialog.title += ': '+title;
+            if (title !== "") {
+                eventDialog.title += ': ' + title;
             }
-
 
         } else {
 
@@ -126,7 +125,7 @@ class App extends Component {
 
         }
 
-        this.setState({eventDialog:eventDialog, selectedEvent:selectedEvent});
+        this.setState({eventDialog: eventDialog, selectedEvent: selectedEvent});
 
     }
 
@@ -162,6 +161,16 @@ class App extends Component {
 
     }
 
+    deleteEvent(type, index) {
+
+        let data = this.state.data;
+        if (index !== null && data.calendars[this.state.calendarId][type] && data.calendars[this.state.calendarId][type][index]) {
+            data.calendars[this.state.calendarId][type].splice(index, 1);
+        }
+        this.setState({data});
+
+    }
+
     render() {
         return (
             <ThemeProvider theme={theme}>
@@ -170,10 +179,10 @@ class App extends Component {
                     <div className="App-header">
                         <img src={logo} className="App-logo" alt="logo"/>
                     </div>
-                    <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} type="large" className="Dialog--scrollable Dialog--mid-width">
+                    <Dialog active={this.state.eventDialog.active} title={this.state.eventDialog.title} type="large" onEscKeyDown={this.discardEventDialog.bind(this)} className="Dialog--scrollable Dialog--mid-width">
                         <EventForm event={this.state.selectedEvent} eventType={this.state.eventDialog.type} cancelEventChanges={this.discardEventDialog.bind(this)} updateSelectedEvent={this.updateSelectedEvent.bind(this)}/>
                     </Dialog>
-                    <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} newEvent={this.newEvent.bind(this)} editEvent={this.editEvent.bind(this)} date={this.state.date}/>
+                    <Calendar data={this.state.data.calendars[this.state.calendarId]} changeMonth={this.changeMonth.bind(this)} newEvent={this.newEvent.bind(this)} editEvent={this.editEvent.bind(this)} deleteEvent={this.deleteEvent.bind(this)} date={this.state.date}/>
                 </div>
             </ThemeProvider>
         );

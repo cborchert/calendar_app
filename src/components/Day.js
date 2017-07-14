@@ -17,7 +17,7 @@ class Day extends Component {
                 <div className="Day__inner-text">{this.props.innerText}</div>
                 <div className="Day__events">
                     {this.props.events.map((event, i) => {
-                        return (<Event key={i} className="Event" data={event} editEvent={this.props.editEvent}/>);
+                        return (<Event key={i} className="Event" data={event} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent}/>);
                     })}
                 </div>
             </div>

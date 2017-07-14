@@ -21,7 +21,7 @@ class Calendar extends Component {
                     <Button icon='add' label='New Event' primary raised onClick={this.newEventHandler.bind(this)}/>
                 </div>
                 <div className="Calendar__body">
-                    <Month events={this.props.data.events} newEvent={this.props.newEvent} editEvent={this.props.editEvent} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
+                    <Month events={this.props.data.events} newEvent={this.props.newEvent} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
                 </div>
             </div>
         );

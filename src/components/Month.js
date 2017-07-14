@@ -110,7 +110,7 @@ class Month extends Component {
             dayEvents = this.filterEventsByDate(dateFull);
             //Deal with cancellations
 
-            week.push((<Day key={dayCounter} date={String(i)} dateFull={dateFull} events={dayEvents} editEvent={this.props.editEvent}/>));
+            week.push((<Day key={dayCounter} date={String(i)} dateFull={dateFull} events={dayEvents} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent}/>));
                 dayInWeekCounter++;
                 dayCounter++;
                 if (dayInWeekCounter % 7 === 0 || i === daysInMonth) {

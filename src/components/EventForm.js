@@ -20,17 +20,8 @@ class EventForm extends Component {
         };
     }
 
-    handleEventChange(name, value) {
-        console.log(this);
-        console.log('EventForm handleEventChange');
-        let event = this.state.event;
-        event[name] = value;
-        this.setState({event: event});
-
-    }
-
     handleChange(key, e) {
-        console.log(e);
+        console.log('EventForm handleChange');
         this.setState({[key]: e});
     }
 
