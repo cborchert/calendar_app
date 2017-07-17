@@ -20,7 +20,7 @@ import './styles/material-design-styles.css';
 class App extends Component {
 
     constructor() {
-        console.log('constructor');
+        //console.log('constructor');
         super();
         let date = new Date();
         this.state = {
@@ -45,7 +45,7 @@ class App extends Component {
 
     discardEventDialog() {
 
-        console.log("cancelSelectedEvent");
+        //console.log("cancelSelectedEvent");
         this.setState({
             eventDialog: {
                 active: false,
@@ -59,23 +59,25 @@ class App extends Component {
 
     updateSelectedEvent(event) {
 
-        console.log("updateSelectedEvent");
-        console.log(event);
+        //console.log("updateSelectedEvent");
+        //console.log(event);
         let type = this.state.eventDialog.type,
             index = this.state.eventDialog.eventIndex,
             data = this.state.data,
             selectedEvent = event;
 
-        selectedEvent.id = Number(String(Date.now()) + String(Math.floor(Math.random() * 1000)));
-        console.log(data.calendars[this.state.calendarId][type]);
+        if(Number(event.id) <= 0) {
+            selectedEvent.id = Number(String(Date.now()) + String(Math.floor(Math.random() * 1000)));
+        }
+        //console.log(data.calendars[this.state.calendarId][type]);
         if (index !== null && data.calendars[this.state.calendarId][type] && data.calendars[this.state.calendarId][type][index]) {
-            console.log('edited ' + type)
+            //console.log('edited ' + type)
             data.calendars[this.state.calendarId][type][index] = selectedEvent;
         } else if (data.calendars[this.state.calendarId][type]) {
-            console.log('new ' + type)
+            //console.log('new ' + type)
             data.calendars[this.state.calendarId][type].push(selectedEvent);
         } else {
-            console.log('couldn\'t do anything with ' + type)
+            //console.log('couldn\'t do anything with ' + type)
         }
 
         this.setState({data: data});
@@ -85,7 +87,7 @@ class App extends Component {
 
     openEventDialog() {
 
-        console.log('openEventDialog');
+        //console.log('openEventDialog');
         let eventDialog = this.state.eventDialog;
         eventDialog.active = true;
         this.setState({eventDialog: eventDialog});
@@ -94,7 +96,7 @@ class App extends Component {
 
     setSelectedEvent(type, index) {
 
-        console.log('setSelectedEvent');
+        //console.log('setSelectedEvent');
         let eventDialog = this.state.eventDialog,
             selectedEvent = {
                 id: -1,
@@ -137,7 +139,7 @@ class App extends Component {
 
     editEvent(type, index) {
 
-        console.log('editEvent', type, index);
+        //console.log('editEvent', type, index);
         this.setSelectedEvent(type, index);
         this.openEventDialog();
 
@@ -145,14 +147,14 @@ class App extends Component {
 
     newEvent(type) {
 
-        console.log('newEvent');
+        //console.log('newEvent');
         this.setSelectedEvent(type, null);
         this.openEventDialog();
 
     }
 
     changeMonth(direction) {
-        console.log('changeMonth');
+        //console.log('changeMonth');
         let date = this.state.date;
         date.setMonth(date.getMonth() + direction);
         this.setState({date});
@@ -160,7 +162,7 @@ class App extends Component {
     }
 
     addEvent(event) {
-        console.log('addEvent');
+        //console.log('addEvent');
         let data = this.state.data;
         data.calendars[this.state.calendarId].events.push(event);
         this.setState({data});

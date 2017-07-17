@@ -13,7 +13,6 @@ import '../styles/EventForm.css';
 class EventForm extends Component {
 
     constructor(props) {
-        console.log('EventForm constructor');
         super(props);
         let event = this.props.event;
         this.state = {
@@ -22,8 +21,8 @@ class EventForm extends Component {
             weeklySchedule: event.recurring_date_list,
             dateSchedule: event.date_list,
             tabIndex: 0,
-            cancelAllEvents: true,
-            cancelledEventIds: []
+            cancelAllEvents: event.cancelAllEvents,
+            cancelledEventIds: event.cancelledEventIds
         };
     }
 
@@ -31,24 +30,24 @@ class EventForm extends Component {
         this.setState({tabIndex});
     }
 
-    onEventsSelectedChange(items) {
-        console.log(items);
+    onEventsSelectedChange(ids) {
+        this.state.cancelledEventIds = ids;
     }
 
     handleChange(key, value) {
-        console.log('EventForm handleChange');
         this.setState({[key]: value});
     }
 
     saveEvent(e) {
-        console.log('EventForm saveEvent');
         e.preventDefault();
         let event = {
             id: this.props.event.id,
             recurring_date_list: this.state.weeklySchedule,
             date_list: this.state.dateSchedule,
             title: this.state.title,
-            content: this.state.content
+            content: this.state.content,
+            cancelAllEvents: this.state.cancelAllEvents,
+            cancelledEventIds: this.state.cancelledEventIds
         };
         this.props.updateSelectedEvent(event);
     }

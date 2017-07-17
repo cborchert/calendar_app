@@ -8,6 +8,11 @@
   margin-top: 1rem;
   padding: 1rem 3rem 1rem 1rem;
   position: relative; }
+  .Event--cancelled {
+    opacity: 0.5; }
+  .Event__cancellation {
+    background-color: #E67E22;
+    color: #fff; }
   .Event p {
     margin: 0 0 1rem; }
   .Event__menu {

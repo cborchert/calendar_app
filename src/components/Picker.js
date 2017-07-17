@@ -13,11 +13,14 @@ class Picker extends Component {
             selectedItems = [];
         this.props.items.forEach(item => {
             let itemInSelected = false;
-            this.props.selectedItems.forEach(selectedItem => {
-                if (item.id == selectedItem.id) {
-                    itemInSelected = true;
-                }
-            });
+            if( this.props.selectedItems ) {
+                //SelectedItems is just an array of Ids
+                this.props.selectedItems.forEach(selectedItem => {
+                    if (item.id == selectedItem) {
+                        itemInSelected = true;
+                    }
+                });
+            }
             if (itemInSelected) {
                 selectedItems.push(item);
             } else {
@@ -84,13 +87,20 @@ class Picker extends Component {
             });
             toList.push(target);
         }
+        let selectedIds = [];
         if (selected) {
             this.setState({available: fromList, selected: toList});
+            toList.forEach(item=>{
+                selectedIds.push(item.id);
+            });
         } else {
             this.setState({available: toList, selected: fromList});
+            fromList.forEach(item=>{
+                selectedIds.push(item.id);
+            });
         }
 
-        this.props.onSelectedChange(this.state.selected);
+        this.props.onSelectedChange(selectedIds);
 
     }
 

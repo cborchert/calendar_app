@@ -161,7 +161,7 @@ var data = {
                     cancelledEventIds: [],
                     date_list: [
                         {
-                            date: '',
+                            date: new Date(),
                             start_time: '',
                             end_time: ''
                         }

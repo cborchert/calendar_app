@@ -49,22 +49,33 @@ class Event extends Component {
 
     //TODO: cancelEvent
     render() {
+        let eventClasses = 'Event',
+            eventTypeLabel;
+        eventClasses += this.props.data.isCancelled
+            ? ' Event--cancelled'
+            : '';
+
+        if (this.props.data.meta.type === 'events') {
+            eventClasses += ' Event__event';
+            eventTypeLabel = 'Event';
+        } else if (this.props.data.meta.type === 'cancellations') {
+            eventClasses += ' Event__cancellation';
+            eventTypeLabel = 'Cancellation';
+        }
         return (
-            <div className="Event">
+            <div className={eventClasses}>
                 <div className="Event__header">
                     <IconMenu icon='more_vert' position='auto' className="Event__menu" menuRipple>
-                        <MenuItem className="Event__menu__item" value='edit' icon='edit' caption='Edit Event' onClick={this.editEvent.bind(this)}/>
+                        <MenuItem className="Event__menu__item" value='edit' icon='edit' caption={`Edit ${String(eventTypeLabel)}`} onClick={this.editEvent.bind(this)}/>
                         <MenuDivider/>
-                        <MenuItem className="Event__menu__item" value='delete' icon='delete' caption='Delete Event' onClick={this.openDeleteDialog.bind(this)}/>
+                        <MenuItem className="Event__menu__item" value='delete' icon='delete' caption={`Delete ${String(eventTypeLabel)}`} onClick={this.openDeleteDialog.bind(this)}/>
                     </IconMenu>
                 </div>
                 <p>{this.props.data.title}</p>
                 <p>{this.props.data.times.start}</p>
                 <p>{this.props.data.times.end}</p>
-                <Dialog type="small" actions={this.dialogActions} active={this.state.deleteDialogActive} onEscKeyDown={this.discardDeleteDialog.bind(this)} title="Are you sure you want to delete this event?">
-                    <p>This event, and
-                        <strong>&nbsp;all&nbsp;</strong>
-                        scheduled times of this event will be lost forever</p>
+                <Dialog type="small" actions={this.dialogActions} active={this.state.deleteDialogActive} onEscKeyDown={this.discardDeleteDialog.bind(this)} title={`Are you sure you want to delete this ${String(eventTypeLabel).toLowerCase()}?`}>
+                    <p>{`This ${String(eventTypeLabel).toLowerCase()}, and all scheduled times of this ${String(eventTypeLabel).toLowerCase()} will be lost forever`}</p>
                 </Dialog>
             </div>
         );

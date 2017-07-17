@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-toolbox/lib/button/Button';
 import Month from './Month';
-import EventForm from './EventForm';
 import '../styles/Calendar.css';
 
 class Calendar extends Component {
@@ -28,7 +27,7 @@ class Calendar extends Component {
                     <p><Button icon='add' label='New Cancellation' accent raised onClick={this.newCancellationHandler.bind(this)}/></p>
                 </div>
                 <div className="Calendar__body">
-                    <Month events={this.props.data.events} newEvent={this.props.newEvent} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
+                    <Month events={this.props.data.events} cancellations={this.props.data.cancellations} newEvent={this.props.newEvent} editEvent={this.props.editEvent} deleteEvent={this.props.deleteEvent} changeMonth={this.props.changeMonth} year={this.props.date.getFullYear()} month={this.props.date.getMonth()}/>
                 </div>
             </div>
         );

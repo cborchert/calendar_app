@@ -12,6 +12,15 @@
     padding: 1rem 3rem 1rem 1rem;
     position: relative;
 
+    &--cancelled {
+        opacity: 0.5;
+    }
+
+    &__cancellation {
+        background-color: $cancellation-bg;
+        color: $cancellation-fg;
+    }
+
     p {
         margin: 0 0 1rem;
     }
@@ -22,13 +31,12 @@
         top: 2px;
         right: 2px;
 
-        &>button>span {
+        & > button > span {
             color: $white;
         }
 
         &__item {
-
-        }
+            }
 
     }
 
