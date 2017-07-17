@@ -70,8 +70,6 @@ class Month extends Component {
                             dateEvent.cancelAllEvents = event.cancelAllEvents;
                             dateEvent.cancelledEventIds = event.cancelledEventIds;
                         }
-                        console.log(event);
-                        console.log(dateEvent);
                         dateEvents.push(dateEvent);
                     }
                 });

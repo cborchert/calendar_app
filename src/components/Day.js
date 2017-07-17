@@ -13,8 +13,6 @@ class Day extends Component {
                 eventEnd = Number(event.times.end.replace(':', ''));
             this.props.cancellations.forEach(cancellation => {
                 //Only if cancel all events or id targetted
-                console.log(cancellation);
-                // if (cancellation.cancelAllEvents || cancellation.cancelledEventIds.indexOf(event.id) > -1) {
                 if (cancellation.cancelAllEvents || (cancellation.cancelledEventIds && cancellation.cancelledEventIds.indexOf(event.id) > -1) ) {
                     let cancellationStart = Number(cancellation.times.start.replace(':', '')),
                         cancellationEnd = Number(cancellation.times.end.replace(':', ''));
