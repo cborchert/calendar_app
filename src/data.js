@@ -152,22 +152,7 @@ var data = {
             name: 'Calendar 1',
             id: 1,
             events: [],
-            cancellations: [
-                {
-                    id: -1,
-                    title: '',
-                    content: '',
-                    cancelAllEvents: false,
-                    cancelledEventIds: [],
-                    date_list: [
-                        {
-                            date: new Date(),
-                            start_time: '',
-                            end_time: ''
-                        }
-                    ]
-                }
-            ]
+            cancellations: []
         }
     ]
 };
